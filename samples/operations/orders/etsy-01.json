@@ -1,0 +1,26 @@
+{
+  "shop_slug": "MeridianPaperStudio",
+  "receipt_id": "3517627928",
+  "ship_country": "AU",
+  "currency_code": "AUD",
+  "destination_country": "AU",
+  "placed_at": "2026-11-12T11:49+11:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Sydney",
+    "postal_code": "2000",
+    "service": "Parcel Post"
+  },
+  "transactions": [
+    {
+      "sku": "ET-ORG-IV-01",
+      "quantity": 2,
+      "unit_price": 24.9
+    },
+    {
+      "sku": "ET-NBK-A5-01",
+      "quantity": 3,
+      "unit_price": 8.5
+    }
+  ]
+}

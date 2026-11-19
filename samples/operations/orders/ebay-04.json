@@ -1,0 +1,26 @@
+{
+  "sellerId": "meridian-eu",
+  "orderId": "17-13309-63690",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "destination_country": "DE",
+  "placed_at": "2026-11-15T11:11+01:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Hamburg",
+    "postal_code": "20095",
+    "service": "DHL Paket"
+  },
+  "lineItems": [
+    {
+      "sku": "EB-MAT-IV-01",
+      "quantity": 3,
+      "unitPrice": 24.9
+    },
+    {
+      "sku": "EB-UTL-IV-01",
+      "quantity": 1,
+      "unitPrice": 18.5
+    }
+  ]
+}

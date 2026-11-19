@@ -1,0 +1,36 @@
+{
+  "SellerAccount": "meridian-us",
+  "AmazonOrderId": "114-4390956-7117985",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "destination_country": "US",
+  "placed_at": "2026-11-16T10:44-08:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Seattle",
+    "postal_code": "98109",
+    "service": "Standard Ground"
+  },
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-RCK-IV-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 37.5
+    },
+    {
+      "SellerSKU": "AMZ-PLN-IV-01",
+      "QuantityOrdered": 1,
+      "UnitPrice": 12.75
+    },
+    {
+      "SellerSKU": "AMZ-FLR-IV-01",
+      "QuantityOrdered": 2,
+      "UnitPrice": 9.5
+    },
+    {
+      "SellerSKU": "AMZ-NTD-IV-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 7.9
+    }
+  ]
+}

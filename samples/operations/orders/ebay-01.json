@@ -1,0 +1,26 @@
+{
+  "sellerId": "meridian-eu",
+  "orderId": "17-13288-61203",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "destination_country": "DE",
+  "placed_at": "2026-11-12T10:23+01:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Berlin",
+    "postal_code": "10115",
+    "service": "DHL Paket"
+  },
+  "lineItems": [
+    {
+      "sku": "EB-ORG-SET-01",
+      "quantity": 3,
+      "unitPrice": 14.95
+    },
+    {
+      "sku": "EB-NOTE-A5-RU",
+      "quantity": 1,
+      "unitPrice": 5.5
+    }
+  ]
+}

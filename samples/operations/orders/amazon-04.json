@@ -1,0 +1,26 @@
+{
+  "SellerAccount": "meridian-us",
+  "AmazonOrderId": "114-4388819-7119366",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "destination_country": "US",
+  "placed_at": "2026-11-15T10:28-08:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Portland",
+    "postal_code": "97205",
+    "service": "Standard Ground"
+  },
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-MAT-IV-01",
+      "QuantityOrdered": 2,
+      "UnitPrice": 27.9
+    },
+    {
+      "SellerSKU": "AMZ-UTL-IV-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 18.95
+    }
+  ]
+}

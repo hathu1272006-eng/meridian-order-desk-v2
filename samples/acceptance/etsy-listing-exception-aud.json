@@ -1,0 +1,10 @@
+{
+  "receipt_id": "3491876291",
+  "shop_slug": "MeridianPaperStudio",
+  "ship_country": "AU",
+  "currency_code": "AUD",
+  "transactions": [
+    {"sku": "ET-ORG-IV-01", "quantity": 1, "unit_price": 24.90},
+    {"sku": "ET-NBK-A5-SG", "quantity": 2, "unit_price": 8.50}
+  ]
+}

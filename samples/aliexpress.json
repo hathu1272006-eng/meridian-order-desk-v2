@@ -1,0 +1,18 @@
+{
+  "order_id": "8186429057123480",
+  "seller_login": "meridian-global",
+  "ship_to": "ZA",
+  "currency": "ZAR",
+  "order_items": [
+    {
+      "seller_sku": "AE-ORG-IV-01",
+      "quantity": 2,
+      "unit_price": 229.0
+    },
+    {
+      "seller_sku": "AE-NBK-A5-01",
+      "quantity": 1,
+      "unit_price": 69.9
+    }
+  ]
+}

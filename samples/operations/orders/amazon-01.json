@@ -1,0 +1,26 @@
+{
+  "SellerAccount": "meridian-us",
+  "AmazonOrderId": "114-4382408-7123509",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "destination_country": "US",
+  "placed_at": "2026-11-12T09:40-08:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Seattle",
+    "postal_code": "98109",
+    "service": "Standard Ground"
+  },
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-ORG-SET-01",
+      "QuantityOrdered": 2,
+      "UnitPrice": 14.95
+    },
+    {
+      "SellerSKU": "AMZ-NOTE-A5-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 5.5
+    }
+  ]
+}

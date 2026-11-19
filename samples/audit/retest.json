@@ -1,0 +1,160 @@
+{
+  "period": "DEMO-2026-11-K1",
+  "as_of": "2026-11-18",
+  "orders": [
+    {
+      "channel": "amazon",
+      "reference": "114-4382408-7123509",
+      "account": "meridian-us",
+      "currency": "USD",
+      "due": "2026-11-18",
+      "gross": "46.40",
+      "fee": "5.00",
+      "refund": "0.00"
+    },
+    {
+      "channel": "amazon",
+      "reference": "114-4384545-7122128",
+      "account": "meridian-us",
+      "currency": "USD",
+      "due": "2026-11-18",
+      "gross": "16.50",
+      "fee": "1.50",
+      "refund": "0.00"
+    },
+    {
+      "channel": "amazon",
+      "reference": "114-4386682-7120747",
+      "account": "meridian-us",
+      "currency": "USD",
+      "due": "2026-11-18",
+      "gross": "32.40",
+      "fee": "2.00",
+      "refund": "0.00"
+    },
+    {
+      "channel": "amazon",
+      "reference": "114-4388819-7119366",
+      "account": "meridian-us",
+      "currency": "USD",
+      "due": "2026-11-18",
+      "gross": "112.65",
+      "fee": "12.65",
+      "refund": "10.00"
+    },
+    {
+      "channel": "ebay",
+      "reference": "17-13288-61203",
+      "account": "meridian-eu",
+      "currency": "EUR",
+      "due": "2026-11-18",
+      "gross": "50.35",
+      "fee": "2.00",
+      "refund": "0.00"
+    },
+    {
+      "channel": "ebay",
+      "reference": "17-13295-62032",
+      "account": "meridian-eu",
+      "currency": "EUR",
+      "due": "2026-11-22",
+      "gross": "5.50",
+      "fee": "0.50",
+      "refund": "0.00"
+    },
+    {
+      "channel": "ebay",
+      "reference": "17-13302-62861",
+      "account": "meridian-eu",
+      "currency": "EUR",
+      "due": "2026-11-21",
+      "gross": "55.40",
+      "fee": "5.40",
+      "refund": "0.00"
+    },
+    {
+      "channel": "ebay",
+      "reference": "17-13309-63690",
+      "account": "meridian-eu",
+      "currency": "EUR",
+      "due": "2026-11-18",
+      "gross": "93.20",
+      "fee": "3.20",
+      "refund": "0.00"
+    }
+  ],
+  "payouts": [
+    {
+      "channel": "amazon",
+      "account": "meridian-us",
+      "reference": "114-4382408-7123509",
+      "line_id": "SET-01",
+      "currency": "USD",
+      "amount": "20.00",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "amazon",
+      "account": "meridian-us",
+      "reference": "114-4382408-7123509",
+      "line_id": "SET-02",
+      "currency": "USD",
+      "amount": "21.40",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "ebay",
+      "account": "meridian-eu",
+      "reference": "17-13302-62861",
+      "line_id": "SET-08",
+      "currency": "EUR",
+      "amount": "50.00",
+      "paid_on": "2026-11-20"
+    },
+    {
+      "channel": "ebay",
+      "account": "meridian-eu",
+      "reference": "17-13309-63690",
+      "line_id": "SET-09",
+      "currency": "EUR",
+      "amount": "90.00",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "amazon",
+      "account": "meridian-us",
+      "reference": "114-4384545-7122128",
+      "line_id": "SET-06",
+      "currency": "USD",
+      "amount": "15.00",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "amazon",
+      "account": "meridian-us",
+      "reference": "114-4386682-7120747",
+      "line_id": "SET-07",
+      "currency": "USD",
+      "amount": "30.40",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "amazon",
+      "account": "meridian-us",
+      "reference": "114-4388819-7119366",
+      "line_id": "SET-04",
+      "currency": "USD",
+      "amount": "90.00",
+      "paid_on": "2026-11-18"
+    },
+    {
+      "channel": "ebay",
+      "account": "meridian-eu",
+      "reference": "17-13288-61203",
+      "line_id": "SET-05",
+      "currency": "EUR",
+      "amount": "48.35",
+      "paid_on": "2026-11-18"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "sellerId": "meridian-eu",
+  "orderId": "17-13295-62032",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "destination_country": "DE",
+  "placed_at": "2026-11-13T10:39+01:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Hamburg",
+    "postal_code": "20095",
+    "service": "DHL Paket"
+  },
+  "lineItems": [
+    {
+      "sku": "EB-NOTE-A5-RU",
+      "quantity": 1,
+      "unitPrice": 5.5
+    }
+  ]
+}

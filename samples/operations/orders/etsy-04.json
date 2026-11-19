@@ -1,0 +1,26 @@
+{
+  "shop_slug": "MeridianPaperStudio",
+  "receipt_id": "3517637309",
+  "ship_country": "AU",
+  "currency_code": "AUD",
+  "destination_country": "AU",
+  "placed_at": "2026-11-15T12:37+11:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Melbourne",
+    "postal_code": "3000",
+    "service": "Parcel Post"
+  },
+  "transactions": [
+    {
+      "sku": "ET-MAT-IV-01",
+      "quantity": 2,
+      "unit_price": 44.5
+    },
+    {
+      "sku": "ET-UTL-IV-01",
+      "quantity": 3,
+      "unit_price": 32.9
+    }
+  ]
+}

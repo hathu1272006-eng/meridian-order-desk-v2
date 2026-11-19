@@ -1,0 +1,18 @@
+{
+  "AmazonOrderId": "114-7826143-2059449",
+  "SellerAccount": "meridian-us",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-ORG-SET-01",
+      "QuantityOrdered": 2,
+      "UnitPrice": 14.95
+    },
+    {
+      "SellerSKU": "AMZ-NOTE-A5-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 5.5
+    }
+  ]
+}

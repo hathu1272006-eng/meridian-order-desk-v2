@@ -1,0 +1,26 @@
+{
+  "seller_login": "meridian-global",
+  "order_id": "8194725083620567",
+  "ship_to": "ZA",
+  "currency": "ZAR",
+  "destination_country": "ZA",
+  "placed_at": "2026-11-12T11:06+02:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Cape Town",
+    "postal_code": "8001",
+    "service": "Standard delivery"
+  },
+  "order_items": [
+    {
+      "seller_sku": "AE-ORG-IV-01",
+      "quantity": 1,
+      "unit_price": 229.0
+    },
+    {
+      "seller_sku": "AE-NBK-A5-01",
+      "quantity": 2,
+      "unit_price": 69.9
+    }
+  ]
+}

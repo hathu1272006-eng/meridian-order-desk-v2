@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meridian · Đối soát chi trả</title>
+  <link rel="stylesheet" href="/client/audit.css">
+  <script defer src="/client/audit.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Meridian · Trang đối soát">
+      <span class="monogram" aria-hidden="true">M</span>
+      <span>Meridian <span class="version">v2</span></span>
+    </a>
+    <nav id="navigation" hidden aria-label="Tiện ích">
+      <a href="/orders">Luồng đơn hàng</a>
+      <span id="identity"></span>
+      <button type="button" id="logout" class="quiet">Đăng xuất</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="login-screen" class="login" hidden>
+      <div class="login-intro">
+        <span class="caps">MERIDIAN ORDER DESK</span>
+        <h1>Đối soát<br>chi trả đa sàn</h1>
+        <p>Kiểm tra chênh lệch, lưu bằng chứng và tái kiểm thử sau khắc phục.</p>
+      </div>
+      <form id="login" class="panel login-form">
+        <h2>Đăng nhập</h2>
+        <label>Tài khoản<input required name="username" autocomplete="username"></label>
+        <label>Mật khẩu<input required type="password" name="password" autocomplete="current-password"></label>
+        <button type="submit" class="primary">Đăng nhập</button>
+        <p class="note">Tài khoản demo được tạo khi khởi động máy chủ với <code>--seed-demo</code>.</p>
+        <p class="message" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="workspace" hidden>
+      <div class="heading">
+        <div><p class="caps">ĐỐI SOÁT ĐA SÀN</p><h1>Khoản chi trả</h1></div>
+        <button type="button" id="show-intake" class="primary" hidden>Nạp kỳ đối soát</button>
+      </div>
+      <div id="summary" class="summary" aria-label="Tóm tắt kỳ đối soát"></div>
+      <p id="notice" class="message" role="status"></p>
+      <div class="panel listing">
+        <div class="list-heading">
+          <div><h2>Hồ sơ ngoại lệ</h2><p class="note">Chọn hồ sơ để xem số liệu và lịch sử soát xét.</p></div>
+          <div class="filters">
+            <label>Kỳ<select id="period"></select></label>
+            <label>Trạng thái<select id="state-filter">
+              <option value="">Tất cả</option><option value="open">Đang mở</option>
+              <option value="in_review">Chờ soát xét</option><option value="closed">Đã đóng</option>
+            </select></label>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">Mã đơn</th><th scope="col">Kỳ</th><th scope="col">Dấu hiệu</th><th scope="col">Trạng thái</th></tr></thead>
+            <tbody id="case-list"></tbody>
+          </table>
+        </div>
+        <p id="empty" class="empty" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="intake" aria-labelledby="intake-title">
+    <form id="intake-form" class="dialog-content">
+      <div class="dialog-heading">
+        <h2 id="intake-title">Nạp kỳ đối soát</h2>
+        <button class="quiet close" type="button" data-close="intake" aria-label="Đóng">×</button>
+      </div>
+      <label>Tệp nguồn JSON<input type="file" name="dataset" accept=".json,application/json"></label>
+      <p class="note">Nguồn đơn và bảng chi trả dùng cùng khóa sàn, tài khoản và mã đơn.</p>
+      <div class="actions">
+        <button class="primary" type="submit" value="upload">Chạy đối soát</button>
+        <button type="submit" value="sample">Dùng dữ liệu mẫu</button>
+      </div>
+      <p class="message" role="alert"></p>
+    </form>
+  </dialog>
+
+  <dialog id="case" aria-labelledby="case-title">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div><p id="case-subtitle" class="caps"></p><h2 id="case-title"></h2></div>
+        <button class="quiet close" type="button" data-close="case" aria-label="Đóng">×</button>
+      </div>
+      <div id="case-body"></div>
+      <div class="actions">
+        <button type="button" id="evidence">Tải bằng chứng JSON</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>

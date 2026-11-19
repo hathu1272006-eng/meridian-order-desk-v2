@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meridian · Vận hành đơn hàng</title>
+<style>
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1b2a34;
+  background: #f2f5f7;
+  --ink: #1b2a34;
+  --muted: #566674;
+  --line: #dce4e8;
+  --surface: #fff;
+  --accent: #126854;
+  --accent-light: #e9f5ee;
+  --navy: #132934;
+  --focus: #158267;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: clamp(25px, 3.1vw, 37px); line-height: 1.12; letter-spacing: -.045em; }
+h2 { font-size: 18px; letter-spacing: -.025em; }
+h3 { font-size: 15px; letter-spacing: -.014em; }
+small, .muted { color: var(--muted); }
+a { color: var(--accent); text-underline-offset: 3px; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button, select, input { min-height: 38px; padding: 7px 11px; border: 1px solid #cbd8dd; border-radius: 8px; background: #fff; }
+button { cursor: pointer; font-weight: 650; }
+button:hover:not(:disabled) { background: #edf4f3; }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+button.primary:hover:not(:disabled) { background: #0e5746; }
+button:disabled { opacity: .52; cursor: default; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+textarea { font-family: ui-monospace, Consolas, monospace; font-size: 13px; width: 100%; padding: 10px; border: 1px solid #cbd8dd; border-radius: 8px; resize: vertical; }
+label { display: grid; gap: 6px; font-weight: 650; font-size: 13px; min-width: 0; }
+[hidden] { display: none !important; }
+.skip-link { position: absolute; left: 10px; top: -100px; z-index: 5; padding: 8px; background: white; }
+.skip-link:focus { top: 10px; }
+.shell { display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: 100vh; }
+.sidebar { background: var(--navy); color: #f2f9f8; padding: 24px 15px; position: sticky; top: 0; height: 100vh; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 4px 22px; }
+.brand-mark { flex: none; display: grid; place-items: center; width: 39px; height: 39px; background: #c4e9da; color: #194c40; border-radius: 8px; }
+.brand-mark svg { display: block; width: 25px; height: 25px; }
+.brand strong { display: block; letter-spacing: -.02em; font-size: 15px; line-height: 1.18; }
+.brand small { display: block; color: #adbfca; margin-top: 3px; }
+.sidebar nav { display: grid; gap: 5px; }
+.sidebar nav button { text-align: left; color: #c7d6dc; background: transparent; border-color: transparent; display: flex; align-items: center; gap: 9px; }
+.sidebar nav button:hover { background: #203c49; color: white; }
+.sidebar nav a { color: #c7d6dc; padding: 8px; }
+.sidebar nav a[hidden] { display: none; }
+.sidebar nav button[aria-current="page"] { color: #fff; background: #254653; border-color: #325b67; }
+.nav-mark { width: 18px; height: 18px; flex: none; color: #a0d7c6; }
+.control-icon { width: 16px; height: 16px; flex: none; }
+.drawer-close .control-icon { display: block; margin: auto; }
+.button-with-icon { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.sidebar-caption { border-top: 1px solid #37525e; margin: 23px 4px 0; padding-top: 13px; color: #adbfca; display: block; }
+.workspace { min-width: 0; }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.topbar-inner { max-width: 1450px; margin: auto; min-height: 56px; padding: 10px 27px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb strong { color: var(--ink); }
+main { max-width: 1450px; margin: auto; padding: 24px 27px 42px; }
+.page-head { margin-bottom: 18px; display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
+.page-head p { color: var(--muted); margin-top: 8px; }
+.page-head button { flex: none; padding-inline: 15px; }
+section { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+section { margin-bottom: 15px; padding: 17px; }
+.row { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; }
+section > .row { margin: 12px 0; }
+.import-card { border-top: 3px solid var(--accent); scroll-margin-top: 16px; }
+.section-head { display: flex; justify-content: space-between; align-items: center; gap: 9px; margin-bottom: 12px; }
+.section-head p { color: var(--muted); font-size: 13px; margin-top: 3px; }
+.import-fields { display: grid; grid-template-columns: minmax(130px, .8fr) minmax(180px, 1.7fr) auto; gap: 11px; align-items: end; }
+.file-control { display: flex; align-items: center; min-width: 0; gap: 9px; border: 1px dashed #8fb3a5; border-radius: 8px; padding: 5px 8px; min-height: 38px; background: #f1f8f5; cursor: pointer; }
+.file-control:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+.file-control [type=file] { width: 1px; height: 1px; min-height: 0; position: absolute; opacity: 0; overflow: hidden; padding: 0; border: 0; }
+.file-action { color: var(--accent); font-weight: 750; flex: none; }
+.file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 450; color: var(--muted); }
+.sample-panel { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); }
+.sample-panel summary { color: var(--accent); font-size: 13px; }
+.sample-panel .row { margin-top: 7px; gap: 8px 17px; }
+.sample-panel small { display: block; margin-top: 5px; }
+.import-preview { margin-top: 13px; border: 1px solid #c9dfd5; border-radius: 10px; background: #f3f9f6; padding: 12px; }
+.preview-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.import-preview .row { margin-top: 10px; }
+.preview-meta, .preview-note { color: var(--muted); margin-top: 5px; }
+.preview-alert { margin-top: 9px; padding: 8px 9px; border-radius: 7px; background: #fff1dd; color: #754715; }
+.error { color: #a72c22; }
+output { display: block; margin-top: 9px; }
+output:empty { display: none; }
+#notice:not(:empty) { background: #eaf5ed; padding: 8px 9px; border-radius: 7px; }
+#notice.error { background: #fff0ed; }
+.list-card { padding: 0; }
+.list-card > .section-head { padding: 15px 16px 0; }
+.queue-tabs { display: flex; gap: 14px; flex-wrap: wrap; padding: 0 16px; border-bottom: 1px solid var(--line); }
+.queue-tabs button { min-height: 39px; padding: 6px 2px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--muted); background: transparent; }
+.queue-tabs button[aria-pressed="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.queue-tabs button span { display: inline-block; margin-left: 5px; min-width: 19px; padding: 1px 5px; border-radius: 5px; text-align: center; color: #405361; background: #edf1f4; font-size: 11px; font-variant-numeric: tabular-nums; }
+.queue-tabs button[aria-pressed="true"] span { background: #e1f1e8; color: #1b624c; }
+.list-card .filter-row { margin: 0; padding: 11px 16px; border-bottom: 1px solid var(--line); }
+.filter-row { display: grid; grid-template-columns: minmax(180px,1.4fr) repeat(3,minmax(115px,1fr)); }
+.filter-row select, .filter-row input { min-width: 0; width: 100%; }
+.list-caption { color: var(--muted); font-size: 12px; }
+.scroll { overflow: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 8px; }
+th, td { padding: 9px 7px; border-bottom: 1px solid #e7edf0; vertical-align: top; }
+th { background: #f1f5f7; color: #536575; font-size: 12px; font-weight: 650; }
+.order-grid { min-width: 720px; margin-top: 0; }
+.order-grid th, .order-grid td { padding: 10px 13px; vertical-align: middle; }
+.order-grid th:first-child, .order-grid td:first-child { padding-left: 16px; }
+.order-grid tbody tr:last-child td { border-bottom: 0; }
+.order-grid td:nth-child(2), .order-grid td:nth-child(4) { white-space: nowrap; }
+.order-grid td:nth-child(4) { font-size: 12px; font-variant-numeric: tabular-nums; }
+.order-context { display: none; }
+tbody tr:hover, tr.selected { background: #edf7f2; }
+.order-key { border: 0; background: transparent; padding: 2px 0; min-height: 24px; text-align: left; color: var(--accent); font-variant-numeric: tabular-nums; }
+.order-grid tbody tr[data-row-order] { cursor: pointer; }
+.order-grid tbody tr[data-row-order]:focus-within { background: #edf7f2; }
+.row-action { min-height: 26px; padding: 3px 6px; font-size: 12px; color: var(--accent); }
+.mapping-help { color: var(--muted); margin-top: 5px; }
+.mapping-inline { background: #f4f8f6; border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin-top: 10px; }
+.mapping-inline .row { margin-top: 8px; align-items: end; }
+.mapping-inline input { max-width: 100%; }
+.sku-results { display: grid; gap: 4px; margin-top: 7px; }
+.sku-results button { text-align: left; min-height: 32px; font-size: 12px; }
+.quote-cell { font-variant-numeric: tabular-nums; font-weight: 700; }
+.chip { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; border-radius: 999px; padding: 4px 8px; background: #e6f3eb; color: #1e6344; font-size: 12px; font-weight: 650; }
+.chip::before { content: ""; background: currentColor; border-radius: 50%; width: 6px; height: 6px; flex: none; }
+.chip.exception, .chip.review, .chip.pending, .chip.offline, .chip.source-canceled { background: #fff0da; color: #784714; }
+.chip.ready, .chip.sending { background: #eaf1fd; color: #285581; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(500px, 100%); z-index: 3; overflow: auto; margin: 0; padding: 0; border-radius: 0; box-shadow: -12px 0 35px #172a3526; }
+.drawer-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; border-bottom: 1px solid var(--line); padding: 13px 17px; }
+.drawer-head p { color: var(--muted); font-size: 12px; }
+.drawer-body { padding: 16px; }
+.drawer-body > p, .drawer-body > .row { margin-bottom: 7px; }
+.drawer-close { min-height: 32px; width: 32px; padding: 0; font-size: 18px; }
+.exception-box { margin: 12px 0; border: 1px solid var(--line); border-radius: 9px; padding: 12px; background: #f7f9fa; }
+.exception-box > h3 { margin-bottom: 4px; }
+.exception-box .row, .exception-box form { margin-top: 8px; }
+details { margin: 10px 0; }
+summary { cursor: pointer; font-weight: 650; }
+pre { margin: 5px 0; background: #edf3f6; padding: 8px; border-radius: 7px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+.diff { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.diff-before pre { background: #faeeea; border-left: 3px solid #b85e52; }
+.diff-after pre { background: #e8f3ec; border-left: 3px solid #4f9873; }
+ul { padding-left: 19px; }
+li { margin-bottom: 5px; }
+@media (max-width: 1180px) {
+  .shell { grid-template-columns: 184px minmax(0, 1fr); }
+  .sidebar { padding-inline: 10px; }
+  .topbar-inner, main { padding-inline: 18px; }
+}
+@media (max-width: 980px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { position: static; height: auto; padding: 11px 18px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .brand { padding: 0; }
+  .sidebar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .sidebar-caption { display: none; }
+}
+@media (max-width: 760px) {
+  .filter-row { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .order-grid { min-width: 0; }
+  .order-grid th:nth-child(2), .order-grid td:nth-child(2),
+  .order-grid th:nth-child(3), .order-grid td:nth-child(3),
+  .order-grid th:nth-child(4), .order-grid td:nth-child(4) { display: none; }
+  .order-grid th, .order-grid td { padding-inline: 7px; }
+  .order-grid th:first-child, .order-grid td:first-child { padding-left: 10px; }
+  .order-grid .chip { white-space: normal; }
+  .order-grid .order-key { overflow-wrap: anywhere; }
+  .order-context { display: block; }
+}
+@media (max-width: 570px) {
+  .sidebar { gap: 9px; }
+  .sidebar nav { width: 100%; }
+  .topbar-inner, main { padding-inline: 13px; }
+  .topbar-inner { flex-wrap: wrap; }
+  .page-head { align-items: flex-start; }
+  .page-head { flex-wrap: wrap; }
+  .queue-tabs { gap: 10px; padding-inline: 10px; }
+  .import-fields { grid-template-columns: minmax(0, 1fr); }
+  .import-fields button { justify-self: start; }
+  .filter-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .filter-row input { grid-column: 1 / -1; }
+  .filter-row select:last-child { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#workspace-main">Đến nội dung</a>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 28 28" fill="none">
+        <path d="M14 2.7 24.2 8.4v11.3L14 25.5 3.8 19.7V8.4L14 2.7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="m3.8 8.4 10.2 5.8 10.2-5.8M14 14.2v11.3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="m8.8 5.7 10.3 5.8v4.2l-2.7-1.5v-4.3L6.1 4.2" fill="#398773"/>
+      </svg>
+    </span>
+    <div><strong>Meridian</strong><small>Home &amp; Paper</small></div>
+  </div>
+  <nav aria-label="Điều hướng vận hành">
+    <a href="/" id="audit-home" hidden>Đối soát chi trả</a>
+    <button data-view="orders" aria-current="page"><svg class="nav-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l3 3v15H5V3h3Z"/><path d="M16 3v4h3M8 11h8m-8 4h8m-8 3h5"/></svg>Đơn hàng</button>
+    <button data-view="exceptions"><svg class="nav-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.4 4.7-7 12.2A1.7 1.7 0 0 0 4.9 19.5h14.2a1.7 1.7 0 0 0 1.5-2.6l-7-12.2a1.8 1.8 0 0 0-3.2 0Z"/><path d="M12 9v4m0 3.4h.01"/></svg>Ngoại lệ</button>
+    <button data-view="mappings"><svg class="nav-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="6" height="6" rx="1.3"/><rect x="15.5" y="14" width="6" height="6" rx="1.3"/><path d="M5.5 10v5a2 2 0 0 0 2 2h8m-3-3 3 3-3 3"/></svg>Ánh xạ SKU</button>
+  </nav>
+  <small class="sidebar-caption">Môi trường nghiệm thu</small>
+</aside>
+<div class="workspace">
+<header class="topbar"><div class="topbar-inner">
+  <div class="breadcrumb">Vận hành liên sàn <span aria-hidden="true">/</span> <strong id="page-name">Đơn hàng</strong></div>
+  <span class="chip" id="mode">Đang kiểm tra chế độ Odoo</span>
+</div></header>
+<main id="workspace-main">
+<div id="orders">
+<div class="page-head"><div><h1 id="orders-title">Đơn hàng liên sàn</h1><p id="orders-description">Theo dõi dữ liệu đơn từ lúc tiếp nhận đến khi có báo giá Odoo.</p></div><button class="primary button-with-icon" id="import-shortcut" aria-expanded="false" aria-controls="create-order"><svg class="control-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg><span id="import-button-label">Nhập đơn</span></button></div>
+<section class="import-card" id="create-order" hidden>
+  <div class="section-head"><div><h2>Nhập đơn hàng</h2><p>Chọn sàn và tệp JSON để kiểm tra trước khi lưu.</p></div></div>
+  <div class="import-fields">
+    <label>Sàn bán hàng<select id="channel"><option value="amazon">Amazon</option><option value="ebay">eBay</option><option value="aliexpress">AliExpress</option><option value="etsy">Etsy</option><option value="taobao">Taobao</option></select></label>
+    <label>Tệp đơn hàng <span class="file-control"><input type="file" id="file" aria-label="Chọn tệp JSON" accept=".json,application/json"><span class="file-action">Chọn tệp JSON</span><span id="file-name" class="file-name">Chưa chọn tệp</span></span></label>
+    <button class="primary" id="upload" disabled>Xem trước</button>
+  </div>
+  <output id="notice" aria-live="polite"></output>
+  <div id="import-preview" class="import-preview" hidden></div>
+  <details class="sample-panel"><summary>Dữ liệu thử nghiệm</summary>
+    <div class="row"><a id="sample-download" href="/samples/amazon.json" download>Tải mẫu Amazon</a>
+      <a id="operations-download" href="/samples/operations/amazon.json" download="amazon-01.json">Tải đơn Amazon trong đợt vận hành</a>
+      <a id="exception-download" href="/samples/operations/amazon-exception.json" download="amazon-06.json">Amazon · thiếu ánh xạ SKU</a></div>
+    <small id="sample-market">Mẫu Amazon giao đến Mỹ · USD. Tải tệp rồi nhập ở trên.</small>
+    <small><a href="/samples/operations/meridian-operations.zip" download>Tải bộ dữ liệu của cả 5 sàn (ZIP)</a>. Giải nén rồi nhập từng tệp JSON trong thư mục orders.</small>
+  </details>
+</section>
+<section class="list-card" id="orders-list">
+  <div class="section-head"><h2 id="list-heading">Danh sách đơn</h2><p id="list-caption" class="list-caption" aria-live="polite"></p></div>
+  <div class="queue-tabs" id="queue-tabs" aria-label="Lọc nhanh theo trạng thái">
+    <button data-queue="" aria-pressed="true">Tất cả <span></span></button>
+    <button data-queue="work" aria-pressed="false">Cần xử lý <span></span></button>
+    <button data-queue="pending" aria-pressed="false">Chờ xác nhận <span></span></button>
+    <button data-queue="synced" aria-pressed="false">Đã vào Odoo <span></span></button>
+  </div>
+  <div class="row filter-row">
+    <input id="filter" type="search" placeholder="Tìm mã đơn hoặc báo giá" aria-label="Tìm đơn">
+    <select id="market-filter" aria-label="Lọc thị trường"><option value="">Mọi thị trường</option><option value="US">Mỹ</option><option value="DE">Đức</option><option value="AU">Úc</option><option value="ZA">Nam Phi</option><option value="JP">Nhật Bản</option></select>
+    <select id="status" aria-label="Lọc trạng thái"><option value="">Mọi trạng thái</option><option value="work">Cần xử lý</option><option value="exception">Ngoại lệ</option><option value="pending">Chờ xác nhận</option><option value="review">Cần đối soát</option><option value="source-canceled">Hủy trên sàn</option><option value="synced">Đã vào Odoo</option><option value="ready">Sẵn sàng</option></select>
+    <select id="assignee-filter" aria-label="Lọc người phụ trách"><option value="">Mọi người phụ trách</option></select>
+  </div>
+  <div class="scroll"><table class="order-grid"><thead><tr><th>Mã đơn nguồn</th><th>Sàn bán</th><th>Quốc gia giao</th><th>Tiền tệ</th><th>Trạng thái</th><th>Phụ trách</th><th>Báo giá Odoo</th></tr></thead><tbody id="order-list"></tbody></table></div>
+</section>
+<section id="order-detail" class="drawer" aria-label="Chi tiết đơn" hidden></section>
+</div>
+<div id="mappings" hidden>
+<div class="page-head"><div><h1>Ánh xạ SKU</h1><p>Cho Meridian biết mã hàng trên sàn là sản phẩm nào trong danh mục nội bộ.</p></div></div>
+<section>
+<h2>Ánh xạ mã sàn sang SKU</h2>
+<p class="mapping-help">Ví dụ, Amazon gửi mã <strong>AMZ-ORG-SET-01</strong> thì Meridian dùng SKU nội bộ <strong>HK-ORG-001</strong> để tìm sản phẩm trong Odoo.</p>
+<form id="mapping-form" class="row">
+  <label>Sàn<select name="channel"><option value="amazon">Amazon</option><option value="ebay">eBay</option><option value="aliexpress">AliExpress</option><option value="etsy">Etsy</option><option value="taobao">Taobao</option></select></label>
+  <label>Tài khoản bán<input name="account" list="account-options" placeholder="VD: meridian-us" required></label>
+  <datalist id="account-options"></datalist>
+  <label>Mã hàng trong tệp đơn<input name="listing" placeholder="VD: AMZ-ORG-SET-01" required></label>
+  <label>SKU nội bộ<input name="sku" list="catalog-options" placeholder="Nhập mã hoặc chọn từ danh mục" required></label>
+  <datalist id="catalog-options"></datalist>
+  <button class="primary">Lưu ánh xạ</button>
+</form>
+<output id="map-notice" aria-live="polite"></output>
+<div class="scroll"><table><thead><tr><th>Sàn</th><th>Tài khoản</th><th>Mã trên sàn</th><th>SKU nội bộ</th></tr></thead><tbody id="map-list"></tbody></table></div>
+</section>
+<section><h2>Danh mục nội bộ</h2><div class="row"><input id="sku-filter" type="search" placeholder="Tìm SKU hoặc tên sản phẩm" aria-label="Tìm SKU"><small id="catalog-count"></small></div>
+<div class="scroll"><table><thead><tr><th>SKU</th><th>Sản phẩm</th><th>Nhóm hàng</th></tr></thead><tbody id="catalog-list"></tbody></table></div></section>
+</div>
+</main>
+</div>
+</div>
+<script>
+const el = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const statusLabel = {received:'Đã nhận',sending:'Đang gửi',exception:'Ngoại lệ',review:'Cần đối soát',synced:'Đã vào Odoo',ready:'Sẵn sàng',pending:'Chờ xác nhận','source-canceled':'Hủy trên sàn'};
+const marketLabel = {US:'Mỹ',DE:'Đức',AU:'Úc',ZA:'Nam Phi',JP:'Nhật Bản'};
+const channelLabel = {amazon:'Amazon',ebay:'eBay',aliexpress:'AliExpress',etsy:'Etsy',taobao:'Taobao'};
+const sourceKeys = {amazon:['AmazonOrderId','SellerAccount'],ebay:['orderId','sellerId'],
+  aliexpress:['order_id','seller_login'],etsy:['receipt_id','shop_slug'],taobao:['tid','seller_nick']};
+const sampleMarket = {amazon:'Mỹ · USD',ebay:'Đức · EUR',aliexpress:'Nam Phi · ZAR',etsy:'Úc · AUD',taobao:'Nhật Bản · CNY'};
+const sampleException = {amazon:'thiếu ánh xạ SKU',ebay:'lệch tổng',aliexpress:'đơn giá âm',
+  etsy:'số lượng bằng 0',taobao:'thiếu ánh xạ SKU'};
+const marketCode = value => typeof value === 'string' ? value.replace(/^EBAY_/, '') : '';
+const marketName = value => marketLabel[marketCode(value)] || value || '—';
+const price = new Intl.NumberFormat('vi-VN', {maximumFractionDigits:2});
+let current, overview, previewCandidate;
+const demoAssignees = [
+  ['Mai Linh','Vận hành sàn'],
+  ['Hải Nam','Quản trị danh mục'],
+  ['Phương Thảo','Đối soát đơn'],
+  ['Quốc Anh','Vận hành đơn quốc tế']
+];
+function message(target, text, error = false) {
+  el(target).textContent = text;
+  el(target).className = error ? 'error' : '';
+}
+const mountedInWorkbench = location.pathname === '/orders';
+let workbenchSession;
+if (mountedInWorkbench) el('audit-home').hidden = false;
+async function api(url, body) {
+  const headers = {'Content-Type':'application/json'};
+  if (body !== undefined && mountedInWorkbench) {
+    workbenchSession ??= await api('/api/session');
+    headers['X-Meridian-CSRF'] = workbenchSession.csrf;
+  }
+  const response = await fetch(url, body === undefined ? {} : {method:'POST',headers,body:JSON.stringify(body)});
+  const result = await response.json();
+  if (mountedInWorkbench && response.status === 401) location.assign('/');
+  if (!response.ok && !result.order) throw new Error(result.error || 'Yêu cầu thất bại.');
+  return result;
+}
+function badge(status) { return '<span class="chip '+esc(status)+'">'+esc(statusLabel[status] || status)+'</span>'; }
+function displayedStatus(row) { return row.canceled ? 'source-canceled' : row.revision_status === 'pending' ? 'pending' : row.status; }
+function deliveryContext(order) {
+  const delivery = order.delivery;
+  const route = [delivery?.city,delivery?.postal_code,delivery?.service].filter(Boolean).join(' · ');
+  const values = [order.placed_at ? 'Đặt lúc '+order.placed_at.replace('T',' ') : '',route].filter(Boolean);
+  return values.length ? '<p class="preview-meta">'+esc(values.join(' / '))+'</p>' : '';
+}
+function matchesQueue(row, status) {
+  const currentStatus = displayedStatus(row);
+  return !status || currentStatus === status || (status === 'work' && ['exception','review','pending','source-canceled'].includes(currentStatus));
+}
+function renderList() {
+  const query = el('filter').value.trim().toLowerCase();
+  if (!overview) return;
+  const status = el('status').value;
+  const rows = overview.orders.filter(row => matchesQueue(row,status) &&
+    (!el('market-filter').value || marketCode(row.market) === el('market-filter').value) &&
+    (!el('assignee-filter').value || row.assignee === el('assignee-filter').value) &&
+    [row.reference,row.channel,row.quotation,row.assignee].some(value => String(value ?? '').toLowerCase().includes(query)));
+  el('list-caption').textContent = rows.length+' / '+overview.orders.length+' đơn';
+  for (const button of el('queue-tabs').querySelectorAll('button')) {
+    button.setAttribute('aria-pressed',button.dataset.queue === status);
+    button.querySelector('span').textContent = overview.orders.filter(row => matchesQueue(row,button.dataset.queue)).length;
+  }
+  el('order-list').innerHTML = rows.map(row => '<tr data-row-order="'+row.id+'" class="'+(current?.id === row.id ? 'selected' : '')+'"><td><button class="order-key" data-order="'+row.id+'">'+esc(row.reference)+'</button><br><small>'+esc(row.account)+'</small>'+
+    '<small class="order-context">'+esc(channelLabel[row.channel])+' · '+esc(marketName(row.market))+' · '+esc(row.currency || '—')+'</small></td>'+
+    '<td>'+esc(channelLabel[row.channel])+'</td><td>'+esc(marketName(row.market))+'</td><td>'+esc(row.currency || '—')+'</td><td>'+
+    badge(displayedStatus(row))+'</td><td>'+esc(row.assignee || '—')+'</td><td class="quote-cell">'+esc(row.quotation || '—')+'</td></tr>').join('') ||
+    '<tr><td colspan="7" class="muted">Chưa có đơn phù hợp.</td></tr>';
+}
+function renderCatalog() {
+  const term = el('sku-filter').value.trim().toLowerCase();
+  const filtered = overview.products.filter(row => (row.sku+' '+row.name).toLowerCase().includes(term));
+  el('catalog-count').textContent = filtered.length + ' / ' + overview.products.length + ' SKU · hiển thị tối đa 30 kết quả';
+  el('catalog-list').innerHTML = filtered.slice(0,30).map(row => '<tr><td><button class="row-action" data-choose-sku="'+esc(row.sku)+'" title="Chọn SKU này">'+esc(row.sku)+'</button></td><td>'+esc(row.name)+'</td><td>'+esc(row.category)+'</td></tr>').join('');
+}
+async function refresh() {
+  overview = await api('/api/overview');
+  el('mode').textContent = overview.live ? 'Đã cấu hình khóa Odoo' : 'Chế độ cục bộ · không gửi Odoo';
+  el('mode').classList.toggle('offline',!overview.live);
+  el('map-list').innerHTML = overview.mappings.map(row => '<tr>'+['channel','account','listing','sku'].map(key => '<td>'+esc(row[key])+'</td>').join('')+'</tr>').join('');
+  el('catalog-options').innerHTML = overview.products.map(row => '<option value="'+esc(row.sku)+'">'+esc(row.name)+'</option>').join('');
+  fillMappingAccounts();
+  const people = [...new Set(overview.orders.map(order => order.assignee).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'vi'));
+  const selected = el('assignee-filter').value;
+  el('assignee-filter').replaceChildren(new Option('Mọi người phụ trách',''), ...people.map(person=>new Option(person,person)));
+  if (people.includes(selected)) el('assignee-filter').value = selected;
+  renderList(); renderCatalog();
+}
+function fillMappingAccounts() {
+  const source = el('mapping-form').elements.channel.value;
+  const accounts = [...new Set([...overview.orders,...overview.mappings].filter(row => row.channel === source).map(row => row.account))].sort();
+  el('account-options').replaceChildren(...accounts.map(account => new Option(account,account)));
+}
+function selectPage(view) {
+  const exceptions = view === 'exceptions';
+  el('orders').hidden = view === 'mappings';
+  el('mappings').hidden = view !== 'mappings';
+  setIntake(false);
+  closeDetail(false);
+  el('import-shortcut').hidden = exceptions;
+  el('orders-title').textContent = exceptions ? 'Xử lý ngoại lệ' : 'Đơn hàng liên sàn';
+  el('orders-description').textContent = exceptions ? 'Theo dõi đơn có lỗi, chờ duyệt bản sửa hoặc cần đối soát.' : 'Theo dõi dữ liệu đơn từ lúc tiếp nhận đến khi có báo giá Odoo.';
+  el('list-heading').textContent = exceptions ? 'Hàng đợi ngoại lệ' : 'Danh sách đơn';
+  el('page-name').textContent = {orders:'Đơn hàng',exceptions:'Ngoại lệ',mappings:'Ánh xạ SKU'}[view];
+  for (const button of document.querySelectorAll('nav [data-view]')) {
+    if (button.dataset.view === view) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  }
+  if (view !== 'mappings') {
+    el('status').value = exceptions ? 'work' : '';
+    for (const id of ['filter','market-filter','assignee-filter']) el(id).value = '';
+    renderList();
+  }
+}
+function setIntake(open) {
+  el('create-order').hidden = !open;
+  el('import-shortcut').setAttribute('aria-expanded',open);
+  el('import-button-label').textContent = open ? 'Đóng nhập đơn' : 'Nhập đơn';
+  if (open) el('channel').focus();
+}
+function closeDetail(restoreFocus = true) {
+  if (!current) return;
+  const orderId = current.id;
+  current = undefined;
+  el('order-detail').hidden = true;
+  el('order-detail').replaceChildren();
+  renderList();
+  if (restoreFocus) el('order-list').querySelector('[data-order="'+orderId+'"]')?.focus();
+}
+const revisionLabel = {pending:'Chờ xác nhận',approved:'Đã xác nhận · kiểm tra đạt',rejected:'Đã trả lại',invalid:'Đã xác nhận · kiểm tra chưa đạt',stale:'Cần xác nhận lại'};
+function exceptionForm(order) {
+  if (!order.case && order.status !== 'exception') return '';
+  const record = order.case;
+  const pending = order.cancellation ? null : record?.revisions.find(revision => revision.status === 'pending');
+  const assignment = order.status === 'exception' && !order.cancellation ?
+    '<form id="assign" class="row"><label>Người phụ trách<input name="assignee" list="demo-assignees" maxlength="80" required value="'+esc(record?.assignee)+'"></label>'+
+    '<datalist id="demo-assignees">'+demoAssignees.map(([name,role])=>'<option value="'+esc(name)+'">'+esc(role)+'</option>').join('')+
+    '</datalist><button>Giao người xử lý</button></form>' : '';
+  const submit = record && !pending && order.status === 'exception' && !order.cancellation ?
+    '<form id="revision"><label>Lý do sửa<input name="reason" maxlength="300" required></label>'+
+    '<div class="row"><label>Tệp JSON đã sửa<input type="file" id="revision-file" accept=".json,application/json"></label>'+
+    (order.reference === '24-12637-58105' ? '<button type="button" id="load-correction">Nạp bản sửa mẫu</button>' : '')+'</div>'+
+    '<label>Dữ liệu bản sửa<textarea name="payload" rows="5" required></textarea></label>'+
+    '<div class="row"><button class="primary">Gửi bản sửa</button><button type="button" id="review-mapping">Gửi ánh xạ để duyệt</button></div></form>' : '';
+  const revisions = (record?.revisions || []).map(revision =>
+    '<details '+(revision.status === 'pending' ? 'open' : '')+'><summary>Bản #'+revision.id+' · '+esc(revisionLabel[revision.status])+'</summary>'+
+    '<p><small>Người gửi: '+esc(revision.submitted_by)+'</small></p><p>'+esc(revision.reason)+'</p>'+
+    (revision.mapping_only ? '<p><small>Duyệt bộ SKU từ tệp nguồn hiện tại.</small></p>' : '')+
+    (revision.lines ? '<ul>'+revision.lines.map(line=>'<li>'+esc(line.listing)+' → <strong>'+esc(line.sku)+'</strong> · '+
+      esc(line.quantity)+' × '+esc(price.format(line.price))+' '+esc(revision.currency)+'</li>').join('')+'</ul>' : '')+
+    revision.changes.map(change => '<p><strong>'+esc(change.field)+'</strong></p><div class="diff">'+
+      '<div class="diff-before"><small>Trước</small><pre>'+esc(JSON.stringify(change.before,null,2))+'</pre></div>'+
+      '<div class="diff-after"><small>Sau</small><pre>'+esc(JSON.stringify(change.after,null,2))+'</pre></div></div>').join('')+
+    (revision.decision ? '<p>'+esc(revision.decision)+'</p>' : '')+'</details>').join('');
+  const review = pending ?
+    '<form id="decision"><label>Người xác nhận<input name="reviewer" maxlength="80" required></label>'+
+    '<label>Lý do trả lại (nếu trả lại)<input name="note" maxlength="300"></label>'+
+    '<div class="row"><button class="primary" value="approve">Xác nhận và kiểm tra lại</button><button value="reject">Trả lại bản sửa</button></div></form>' : '';
+  return '<div class="exception-box"><h3>Xử lý ngoại lệ</h3>'+
+    (record ? '<p><small>Phụ trách: '+esc(record.assignee)+'</small></p>' : '')+assignment+submit+revisions+review+
+    '<output id="case-notice" aria-live="polite"></output></div>';
+}
+function bindExceptionForm(order) {
+  const path = '/api/orders/'+order.id+'/';
+  async function run(form, action, payload) {
+    const buttons = [...form.querySelectorAll('button')];
+    buttons.forEach(button => button.disabled = true);
+    try {
+      const updated = await api(path+action,payload);
+      await refresh(); detail(updated);
+    } catch (error) {
+      message('case-notice',error.message,true);
+      buttons.forEach(button => button.disabled = false);
+    }
+  }
+  if (el('assign')) el('assign').onsubmit = event => {
+    event.preventDefault();
+    run(event.target,'assign',Object.fromEntries(new FormData(event.target)));
+  };
+  const revision = el('revision');
+  if (revision) {
+    el('revision-file').onchange = async event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.size > 900000) { message('case-notice','Tệp quá lớn.',true); return; }
+      revision.elements.payload.value = await file.text();
+    };
+    if (el('load-correction')) el('load-correction').onclick = async () => {
+      try { revision.elements.payload.value = JSON.stringify(await api('/samples/corrected-mapping.json'),null,2); }
+      catch (error) { message('case-notice',error.message,true); }
+    };
+    el('review-mapping').onclick = () => {
+      const reason = revision.elements.reason.value.trim();
+      if (!reason) { message('case-notice','Nhập lý do gửi ánh xạ để duyệt.',true); revision.elements.reason.focus(); return; }
+      run(revision,'revision',{mapping_only:true,reason});
+    };
+    revision.onsubmit = event => {
+      event.preventDefault();
+      let raw;
+      try { raw = JSON.parse(revision.elements.payload.value); }
+      catch { message('case-notice','Dữ liệu bản sửa chưa phải JSON hợp lệ.',true); return; }
+      run(revision,'revision',{order:raw,reason:revision.elements.reason.value});
+    };
+  }
+  if (el('decision')) el('decision').onsubmit = event => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.target));
+    run(event.target,'decision',{...values,decision:event.submitter?.value || 'approve',
+      revision_id:order.case.revisions.find(item => item.status === 'pending').id});
+  };
+}
+function detail(order) {
+  const opening = el('order-detail').hidden || current?.id !== order.id;
+  current = order;
+  renderList();
+  const lines = order.payload.lines.map((line,index) => {
+    const mapping = overview.mappings.find(m => m.channel === order.channel && m.account === order.account && m.listing === line.listing);
+    const sku = order.resolved?.[index]?.sku || mapping?.sku;
+    const canMap = !sku && !order.cancellation && order.status === 'exception' && /^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/.test(line.listing || '');
+    const skuCell = sku ? esc(sku) : canMap ?
+      '<button class="row-action" data-map-line="'+index+'" aria-label="Ánh xạ mã '+esc(line.listing)+'">Ánh xạ SKU</button>' : '—';
+    return '<tr><td>'+esc(line.listing)+'</td><td>'+skuCell+'</td><td>'+esc(line.quantity)+'</td><td>'+esc(typeof line.price === 'number' ? price.format(line.price) : line.price)+'</td></tr>';
+  }).join('');
+  const link = order.odoo_url ? '<p><a href="' + esc(order.odoo_url) + '" target="_blank" rel="noopener">Mở báo giá ' + esc(order.quotation) + ' trong Odoo</a></p>' : '';
+  const workingCase = order.case && order.status === 'exception' && order.case.revisions[0]?.status !== 'approved';
+  const retryLabel = order.status === 'review' ? 'Đối soát lại' : order.case ? 'Bàn giao Odoo' : 'Xử lý lại';
+  const retry = !order.cancellation && !workingCase && ['received','exception','ready','review'].includes(order.status) ?
+    '<button id="retry" class="primary">'+retryLabel+'</button>' : '';
+  const assignmentShortcut = order.status === 'exception' && !order.cancellation ?
+    '<button id="assign-shortcut">'+(order.case ? 'Đổi người phụ trách' : 'Phân công')+'</button>' : '';
+  const financial = order.payload.financial;
+  const totals = financial && typeof financial === 'object' ?
+    '<details open><summary>Tổng tiền theo dữ liệu nguồn</summary><ul>'+
+    [['shipping','Phí giao hàng'],['discount','Giảm giá'],['tax','Thuế nguồn'],['total','Tổng nguồn']].map(([key,label]) =>
+      '<li>'+label+': <strong>'+esc(typeof financial[key] === 'number' ? price.format(financial[key]) : '—')+'</strong> '+esc(order.payload.currency)+'</li>').join('')+
+    '</ul></details>' : '';
+  el('order-detail').innerHTML = '<div class="drawer-head"><div><p>Chi tiết đơn</p><h2>'+esc(order.reference)+'</h2></div>'+
+    '<button id="close-order" class="drawer-close" aria-label="Đóng chi tiết đơn"><svg class="control-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div><div class="drawer-body">'+
+    '<div class="row">'+badge(order.cancellation ? 'source-canceled' : order.status)+retry+assignmentShortcut+'</div>'+
+    (order.cancellation ? '<p class="preview-alert">'+
+      (order.quotation ? 'Đơn đã hủy trên sàn. Mở báo giá '+esc(order.quotation)+' để kiểm tra và xử lý trong Odoo.' :
+        'Đơn đã hủy trên sàn. Meridian sẽ giữ lại và không gửi thêm báo giá.')+'</p>'+
+      '<details><summary>Thông báo hủy từ sàn</summary><pre>'+esc(JSON.stringify(order.cancellation.raw,null,2))+'</pre></details>' : '')+
+    (order.case ? '<p class="muted">Người phụ trách: <strong>'+esc(order.case.assignee)+'</strong></p>' : '')+
+    '<p>'+esc(order.detail)+'</p>'+link+
+    '<p class="muted">'+esc(marketName(order.payload.market))+' · '+esc(order.payload.currency)+'</p>'+deliveryContext(order.payload)+
+    '<div class="scroll"><table><thead><tr><th>Mã sàn</th><th>SKU</th><th>SL</th><th>Đơn giá</th></tr></thead><tbody>'+lines+'</tbody></table></div>'+
+    '<div id="inline-mapping"></div><output id="detail-notice" aria-live="polite"></output>'+totals+exceptionForm(order)+
+    '<details open><summary>Lịch sử xử lý</summary><ul>'+order.events.map(e => '<li><small>'+esc(new Date(e.at).toLocaleString('vi-VN'))+'</small> '+esc(e.message)+'</li>').join('')+'</ul></details>'+
+    '<details><summary>Dữ liệu nguồn đang xử lý</summary><pre>'+esc(JSON.stringify(order.raw,null,2))+'</pre></details>'+
+    (order.case ? '<details><summary>Dữ liệu nguồn ban đầu</summary><pre>'+esc(JSON.stringify(order.case.original,null,2))+'</pre></details>' : '')+
+    '<details><summary>Dữ liệu chuẩn hóa</summary><pre>'+esc(JSON.stringify(order.payload,null,2))+'</pre></details></div>';
+  el('order-detail').hidden = false;
+  if (opening) el('order-detail').scrollTop = 0;
+  el('close-order').onclick = () => closeDetail();
+  if (el('assign-shortcut')) el('assign-shortcut').onclick = () => el('assign').elements.assignee.focus();
+  if (opening) el('close-order').focus({preventScroll:true});
+  for (const button of el('order-detail').querySelectorAll('[data-map-line]')) {
+    button.onclick = () => showInlineMapping(order, order.payload.lines[Number(button.dataset.mapLine)].listing);
+  }
+  bindExceptionForm(order);
+  if (el('retry')) el('retry').onclick = async () => {
+    el('retry').disabled = true;
+    try { const result = await api('/api/orders/'+order.id+'/retry',{}); await refresh(); detail(result); }
+    catch (error) { message('notice',error.message,true); el('retry').disabled = false; }
+  };
+}
+function showInlineMapping(order, listing) {
+  el('inline-mapping').innerHTML = '<form id="inline-map-form" class="mapping-inline"><h3>Ánh xạ mã '+esc(listing)+'</h3>'+
+    '<p class="mapping-help">'+esc(channelLabel[order.channel])+' · '+esc(order.account)+'</p>'+
+    '<div class="row"><label>SKU nội bộ<input name="sku" placeholder="Tìm mã SKU hoặc tên sản phẩm" required autocomplete="off"></label>'+
+    '<button class="primary">Lưu ánh xạ</button></div><div id="sku-results" class="sku-results"></div>'+
+    '<output id="inline-map-notice" aria-live="polite"></output></form>';
+  const form = el('inline-map-form');
+  const input = form.elements.sku;
+  const results = el('sku-results');
+  input.oninput = () => {
+    const query = input.value.trim().toLowerCase();
+    const matches = query ? overview.products.filter(item =>
+      (item.sku+' '+item.name).toLowerCase().includes(query)).slice(0,5) : [];
+    results.innerHTML = matches.map(item => '<button type="button" data-sku="'+esc(item.sku)+'">'+
+      esc(item.sku)+' · '+esc(item.name)+'</button>').join('') ||
+      (query ? '<small>Chưa tìm thấy sản phẩm phù hợp.</small>' : '');
+  };
+  results.onclick = event => {
+    const button = event.target.closest('[data-sku]');
+    if (button) { input.value = button.dataset.sku; results.replaceChildren(); input.focus(); }
+  };
+  form.onsubmit = async event => {
+    event.preventDefault();
+    const submit = form.querySelector('button.primary');
+    submit.disabled = true;
+    try {
+      await api('/api/mappings',{channel:order.channel,account:order.account,listing,sku:input.value.trim()});
+      await refresh();
+      detail(await api('/api/orders/'+order.id));
+      message('detail-notice', order.case ?
+        'Đã lưu ánh xạ. Nhập lý do và chọn Gửi ánh xạ để duyệt trước khi bàn giao.' :
+        'Đã lưu ánh xạ. Kiểm tra SKU rồi bấm Xử lý lại.');
+    } catch (error) {
+      message('inline-map-notice',error.message,true);
+      submit.disabled = false;
+    }
+  };
+  input.focus();
+}
+async function ingest(raw, channel) {
+  message('notice','Đang xử lý đơn…');
+  const result = await api('/api/orders',{channel,order:raw});
+  await refresh(); detail(result.order);
+  message('notice', result.result === 'conflict' ? 'Cùng mã nguồn với nội dung khác. Đơn đã lưu được giữ nguyên.' :
+    result.result === 'duplicate' ? 'Đơn đã có. Đang hiển thị kết quả lần trước.' :
+    result.result === 'canceled' ? 'Đã ghi nhận trạng thái hủy trên sàn.' : 'Đã nhận đơn.', result.result === 'conflict');
+}
+function closePreview() {
+  previewCandidate = undefined;
+  el('import-preview').hidden = true;
+  el('import-preview').replaceChildren();
+}
+function renderPreview(result) {
+  const order = result.order;
+  const newCancellation = result.cancellation && !result.existing?.canceled;
+  const heading = newCancellation ? 'Đơn đã hủy trên sàn' :
+    result.existing?.canceled ? 'Đã có thông báo hủy' :
+    result.existing ? (result.existing.matches ? 'Đơn này đã được nhập' : 'Cùng mã nguồn, nội dung đã thay đổi') :
+    (result.error ? 'Đơn cần xử lý ngoại lệ' : 'Sẵn sàng xác nhận nhập');
+  const lineRows = order.lines.map(line => '<tr><td>'+esc(line.listing || '—')+'</td><td>'+
+    (line.sku ? esc(line.sku) : '<span class="error">Chưa ánh xạ</span>')+'</td><td>'+esc(line.quantity)+'</td><td>'+
+    esc(typeof line.price === 'number' ? price.format(line.price) : line.price)+'</td></tr>').join('');
+  const confirmLabel = newCancellation ? 'Ghi nhận hủy' : result.existing ? 'Mở đơn hiện có' :
+    (result.error ? 'Lưu vào ngoại lệ' : 'Xác nhận nhập');
+  const existingMessage = newCancellation ? '<p class="preview-alert">Meridian ghi nhận thông báo hủy.'+
+    (result.existing?.quotation ? ' Báo giá liên quan: '+esc(result.existing.quotation)+'. Hãy kiểm tra chứng từ này trong Odoo.' : '')+'</p>' :
+    result.existing ? '<p class="preview-note">'+
+    (result.existing.matches ? 'Meridian sẽ mở bản ghi đã lưu.' : 'Mở đơn hiện có để kiểm tra dữ liệu đã lưu.')+
+    (result.existing.quotation ? ' Báo giá: '+esc(result.existing.quotation)+'.' : '')+'</p>' : '';
+  el('import-preview').innerHTML = '<div class="preview-head"><div><h3 id="preview-title" tabindex="-1">'+heading+'</h3>'+
+    '<p class="preview-meta">'+esc(order.reference)+' · '+esc(channelLabel[order.channel])+' · '+esc(marketName(order.market))+
+    ' · '+esc(order.currency || '—')+'</p></div>'+badge(result.cancellation || result.existing?.canceled ? 'source-canceled' : result.error ? 'exception' : 'ready')+'</div>'+
+    deliveryContext(order)+(result.error ? '<p class="preview-alert">'+esc(result.error)+'</p>' : '')+existingMessage+
+    '<div class="scroll"><table><thead><tr><th>Mã hàng trên sàn</th><th>SKU nội bộ</th><th>Số lượng</th><th>Đơn giá</th></tr></thead><tbody>'+lineRows+'</tbody></table></div>'+
+    '<p class="preview-note"><small>Thao tác xem trước chưa lưu đơn hay gửi sang Odoo.</small></p>'+
+    '<div class="row"><button class="primary" id="confirm-import">'+confirmLabel+'</button><button id="cancel-preview">Đóng</button></div>';
+  el('import-preview').hidden = false;
+  el('preview-title').focus({preventScroll:true});
+  el('cancel-preview').onclick = () => { closePreview(); el('upload').focus(); };
+  el('confirm-import').onclick = async () => {
+    const candidate = previewCandidate;
+    if (!candidate) return;
+    const controls = ['confirm-import','cancel-preview','upload','file','channel'].map(el);
+    controls.forEach(control => control.disabled = true);
+    try {
+      if (result.existing && !newCancellation) {
+        await refresh();
+        detail(await api('/api/orders/'+result.existing.id));
+        message('notice','Đang hiển thị đơn đã lưu.');
+      } else {
+        await ingest(candidate.raw,candidate.channel);
+      }
+      closePreview();
+    } catch (error) { message('notice',error.message,true); }
+    finally { controls.forEach(control => control.disabled = false); }
+  };
+}
+el('file').onchange = () => {
+  const file = el('file').files[0];
+  el('file-name').textContent = file?.name || 'Chưa chọn tệp';
+  el('upload').disabled = !file;
+  closePreview();
+  message('notice','');
+};
+el('upload').onclick = async () => {
+  const file = el('file').files[0];
+  if (!file) return;
+  const channel = el('channel').value;
+  for (const id of ['upload','channel','file']) el(id).disabled = true;
+  try {
+    if (file.size > 900000) throw new Error('Tệp vượt quá 900 KB.');
+    if (/\.zip$/i.test(file.name)) throw new Error('Giải nén gói ZIP rồi chọn một tệp JSON trong thư mục orders.');
+    const raw = JSON.parse(await file.text());
+    const formats = raw && typeof raw === 'object' ? Object.entries(sourceKeys)
+      .filter(([,keys]) => keys.every(key => Object.hasOwn(raw,key))) : [];
+    if (formats.length === 1 && formats[0][0] !== channel) {
+      throw new Error('Tệp này thuộc '+channelLabel[formats[0][0]]+'. Hãy đổi Sàn bán hàng từ '+channelLabel[channel]+' sang '+channelLabel[formats[0][0]]+' rồi bấm Xem trước.');
+    }
+    closePreview();
+    const result = await api('/api/orders/preview',{channel,order:raw});
+    previewCandidate = {raw,channel};
+    message('notice','');
+    renderPreview(result);
+  } catch (error) {
+    message('notice',error instanceof SyntaxError ? 'Tệp chưa đúng định dạng JSON. Hãy kiểm tra lại tệp.' : error.message,true);
+  } finally {
+    for (const id of ['upload','channel','file']) el(id).disabled = false;
+  }
+};
+function samplePath() {
+  return '/samples/'+el('channel').value+'.json';
+}
+el('channel').onchange = () => {
+  const source = el('channel').value;
+  el('sample-download').href = samplePath();
+  el('sample-download').textContent = 'Tải mẫu '+channelLabel[source];
+  el('operations-download').href = '/samples/operations/'+source+'.json';
+  el('operations-download').download = source+'-01.json';
+  el('operations-download').textContent = 'Tải đơn '+channelLabel[source]+' trong đợt vận hành';
+  el('exception-download').href = '/samples/operations/'+source+'-exception.json';
+  el('exception-download').download = source+'-06.json';
+  el('exception-download').textContent = channelLabel[source]+' · '+sampleException[source];
+  el('sample-market').textContent = 'Mẫu '+channelLabel[source]+' giao đến '+sampleMarket[source]+'. Tải tệp rồi nhập ở trên.';
+  closePreview();
+  message('notice','');
+};
+el('order-list').onclick = async event => {
+  const row = event.target.closest('[data-row-order]');
+  if (row) { try { detail(await api('/api/orders/'+row.dataset.rowOrder)); } catch (error) { message('notice',error.message,true); } }
+};
+el('filter').oninput = el('status').onchange = renderList;
+el('market-filter').onchange = renderList;
+el('assignee-filter').onchange = renderList;
+el('import-shortcut').onclick = () => setIntake(el('create-order').hidden);
+el('queue-tabs').onclick = event => {
+  const button = event.target.closest('[data-queue]');
+  if (button) { el('status').value = button.dataset.queue; renderList(); }
+};
+document.addEventListener('keydown',event => {
+  if (event.key === 'Escape' && current) closeDetail();
+});
+el('sku-filter').oninput = renderCatalog;
+for (const button of document.querySelectorAll('nav [data-view]')) button.onclick = () => selectPage(button.dataset.view);
+el('mapping-form').elements.channel.onchange = () => {
+  el('mapping-form').elements.account.value = '';
+  if (overview) fillMappingAccounts();
+};
+el('catalog-list').onclick = event => {
+  const button = event.target.closest('[data-choose-sku]');
+  if (!button) return;
+  const field = el('mapping-form').elements.sku;
+  field.value = button.dataset.chooseSku;
+  field.focus();
+};
+el('mapping-form').onsubmit = async event => {
+  event.preventDefault();
+  try {
+    await api('/api/mappings',Object.fromEntries(new FormData(event.target)));
+    await refresh();
+    if (current) detail(await api('/api/orders/'+current.id));
+    message('map-notice','Đã lưu ánh xạ. Có thể quay lại đơn lỗi để xử lý lại.');
+  } catch (error) { message('map-notice',error.message,true); }
+};
+refresh().catch(error => message('notice',error.message,true));
+</script>
+</body>
+</html>

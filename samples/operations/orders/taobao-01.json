@@ -1,0 +1,26 @@
+{
+  "seller_nick": "meridian-east-asia",
+  "tid": "4836721095872414989",
+  "delivery_country": "JP",
+  "settlement_currency": "CNY",
+  "destination_country": "JP",
+  "placed_at": "2026-11-12T12:32+09:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Tokyo",
+    "postal_code": "100-0001",
+    "service": "Consolidated cross-border parcel"
+  },
+  "orders": [
+    {
+      "outer_sku_id": "TB-ORG-IV-01",
+      "num": 3,
+      "price": 69.0
+    },
+    {
+      "outer_sku_id": "TB-NBK-A5-01",
+      "num": 1,
+      "price": 19.9
+    }
+  ]
+}

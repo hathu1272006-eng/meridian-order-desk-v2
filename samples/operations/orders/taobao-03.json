@@ -1,0 +1,26 @@
+{
+  "seller_nick": "meridian-east-asia",
+  "tid": "4836721095872421243",
+  "delivery_country": "JP",
+  "settlement_currency": "CNY",
+  "destination_country": "JP",
+  "placed_at": "2026-11-14T13:04+09:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Tokyo",
+    "postal_code": "100-0001",
+    "service": "Consolidated cross-border parcel"
+  },
+  "orders": [
+    {
+      "outer_sku_id": "TB-STO-IV-01",
+      "num": 2,
+      "price": 89.0
+    },
+    {
+      "outer_sku_id": "TB-PEN-IV-01",
+      "num": 3,
+      "price": 29.9
+    }
+  ]
+}

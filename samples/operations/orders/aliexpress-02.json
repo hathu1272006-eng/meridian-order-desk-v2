@@ -1,0 +1,21 @@
+{
+  "seller_login": "meridian-global",
+  "order_id": "8194725083623694",
+  "ship_to": "ZA",
+  "currency": "ZAR",
+  "destination_country": "ZA",
+  "placed_at": "2026-11-13T11:22+02:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Johannesburg",
+    "postal_code": "2001",
+    "service": "Standard delivery"
+  },
+  "order_items": [
+    {
+      "seller_sku": "AE-NBK-A5-01",
+      "quantity": 2,
+      "unit_price": 69.9
+    }
+  ]
+}

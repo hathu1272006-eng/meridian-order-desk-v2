@@ -1,0 +1,36 @@
+{
+  "sellerId": "meridian-eu",
+  "orderId": "17-13316-64519",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "destination_country": "DE",
+  "placed_at": "2026-11-16T11:27+01:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Berlin",
+    "postal_code": "10115",
+    "service": "DHL Paket"
+  },
+  "lineItems": [
+    {
+      "sku": "EB-RCK-IV-01",
+      "quantity": 1,
+      "unitPrice": 34.9
+    },
+    {
+      "sku": "EB-PLN-IV-01",
+      "quantity": 2,
+      "unitPrice": 11.9
+    },
+    {
+      "sku": "EB-FLR-IV-01",
+      "quantity": 3,
+      "unitPrice": 8.95
+    },
+    {
+      "sku": "EB-NTD-IV-01",
+      "quantity": 1,
+      "unitPrice": 7.5
+    }
+  ]
+}

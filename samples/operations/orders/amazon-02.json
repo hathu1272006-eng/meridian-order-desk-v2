@@ -1,0 +1,21 @@
+{
+  "SellerAccount": "meridian-us",
+  "AmazonOrderId": "114-4384545-7122128",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "destination_country": "US",
+  "placed_at": "2026-11-13T09:56-08:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Portland",
+    "postal_code": "97205",
+    "service": "Standard Ground"
+  },
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-NOTE-A5-01",
+      "QuantityOrdered": 3,
+      "UnitPrice": 5.5
+    }
+  ]
+}

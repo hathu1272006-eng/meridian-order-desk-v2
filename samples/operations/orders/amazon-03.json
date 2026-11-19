@@ -1,0 +1,26 @@
+{
+  "SellerAccount": "meridian-us",
+  "AmazonOrderId": "114-4386682-7120747",
+  "Marketplace": "US",
+  "CurrencyCode": "USD",
+  "destination_country": "US",
+  "placed_at": "2026-11-14T10:12-08:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Seattle",
+    "postal_code": "98109",
+    "service": "Standard Ground"
+  },
+  "OrderItems": [
+    {
+      "SellerSKU": "AMZ-STO-IV-01",
+      "QuantityOrdered": 1,
+      "UnitPrice": 18.5
+    },
+    {
+      "SellerSKU": "AMZ-PEN-IV-01",
+      "QuantityOrdered": 2,
+      "UnitPrice": 6.95
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "seller_nick": "meridian-east-asia",
+  "tid": "4836721095872427497",
+  "delivery_country": "JP",
+  "settlement_currency": "CNY",
+  "destination_country": "JP",
+  "placed_at": "2026-11-16T13:36+09:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Tokyo",
+    "postal_code": "100-0001",
+    "service": "Consolidated cross-border parcel"
+  },
+  "orders": [
+    {
+      "outer_sku_id": "TB-RCK-IV-01",
+      "num": 1,
+      "price": 159.0
+    },
+    {
+      "outer_sku_id": "TB-PLN-IV-01",
+      "num": 2,
+      "price": 49.9
+    },
+    {
+      "outer_sku_id": "TB-FLR-IV-01",
+      "num": 3,
+      "price": 36.9
+    },
+    {
+      "outer_sku_id": "TB-NTD-IV-01",
+      "num": 1,
+      "price": 24.9
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "orderId": "17-12908-44172",
+  "sellerId": "meridian-eu",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "lineItems": [
+    {
+      "sku": "EB-ORG-SET-01",
+      "quantity": 1,
+      "unitPrice": 14.95
+    },
+    {
+      "sku": "EB-NOTE-A5-RU",
+      "quantity": 2,
+      "unitPrice": 5.5
+    }
+  ]
+}

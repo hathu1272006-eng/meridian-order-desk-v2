@@ -1,0 +1,26 @@
+{
+  "sellerId": "meridian-eu",
+  "orderId": "17-13302-62861",
+  "marketplaceId": "EBAY_DE",
+  "currency": "EUR",
+  "destination_country": "DE",
+  "placed_at": "2026-11-14T10:55+01:00",
+  "source_status": "PAID",
+  "delivery": {
+    "city": "Berlin",
+    "postal_code": "10115",
+    "service": "DHL Paket"
+  },
+  "lineItems": [
+    {
+      "sku": "EB-STO-IV-01",
+      "quantity": 2,
+      "unitPrice": 17.95
+    },
+    {
+      "sku": "EB-PEN-IV-01",
+      "quantity": 3,
+      "unitPrice": 6.5
+    }
+  ]
+}

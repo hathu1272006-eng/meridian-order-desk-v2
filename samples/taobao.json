@@ -1,0 +1,18 @@
+{
+  "tid": "4816392705142081673",
+  "seller_nick": "meridian-east-asia",
+  "delivery_country": "JP",
+  "settlement_currency": "CNY",
+  "orders": [
+    {
+      "outer_sku_id": "TB-ORG-IV-01",
+      "num": 1,
+      "price": 69.0
+    },
+    {
+      "outer_sku_id": "TB-NBK-A5-01",
+      "num": 3,
+      "price": 19.9
+    }
+  ]
+}

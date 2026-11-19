@@ -1,0 +1,314 @@
+[
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-ORG-SET-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-NOTE-A5-01",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-us",
+    "listing": "EB-ORG-SET-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-us",
+    "listing": "EB-NOTE-A5-01",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-ORG-SET-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-NOTE-A5-RU",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-ORG-IV-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-NBK-A5-01",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-ORG-IV-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-NBK-A5-01",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-ORG-IV-01",
+    "sku": "HK-ORG-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-NBK-A5-01",
+    "sku": "ST-NBK-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-STO-IV-01",
+    "sku": "HK-STO-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-MAT-IV-01",
+    "sku": "HK-MAT-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-UTL-IV-01",
+    "sku": "HK-UTL-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-RCK-IV-01",
+    "sku": "HK-RCK-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-PLN-IV-01",
+    "sku": "ST-PLN-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-PEN-IV-01",
+    "sku": "ST-PEN-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-FLR-IV-01",
+    "sku": "ST-FLR-001"
+  },
+  {
+    "channel": "amazon",
+    "account": "meridian-us",
+    "listing": "AMZ-NTD-IV-01",
+    "sku": "ST-NTD-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-STO-IV-01",
+    "sku": "HK-STO-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-MAT-IV-01",
+    "sku": "HK-MAT-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-UTL-IV-01",
+    "sku": "HK-UTL-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-RCK-IV-01",
+    "sku": "HK-RCK-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-PLN-IV-01",
+    "sku": "ST-PLN-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-PEN-IV-01",
+    "sku": "ST-PEN-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-FLR-IV-01",
+    "sku": "ST-FLR-001"
+  },
+  {
+    "channel": "ebay",
+    "account": "meridian-eu",
+    "listing": "EB-NTD-IV-01",
+    "sku": "ST-NTD-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-STO-IV-01",
+    "sku": "HK-STO-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-MAT-IV-01",
+    "sku": "HK-MAT-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-UTL-IV-01",
+    "sku": "HK-UTL-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-RCK-IV-01",
+    "sku": "HK-RCK-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-PLN-IV-01",
+    "sku": "ST-PLN-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-PEN-IV-01",
+    "sku": "ST-PEN-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-FLR-IV-01",
+    "sku": "ST-FLR-001"
+  },
+  {
+    "channel": "etsy",
+    "account": "MeridianPaperStudio",
+    "listing": "ET-NTD-IV-01",
+    "sku": "ST-NTD-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-STO-IV-01",
+    "sku": "HK-STO-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-MAT-IV-01",
+    "sku": "HK-MAT-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-UTL-IV-01",
+    "sku": "HK-UTL-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-RCK-IV-01",
+    "sku": "HK-RCK-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-PLN-IV-01",
+    "sku": "ST-PLN-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-PEN-IV-01",
+    "sku": "ST-PEN-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-FLR-IV-01",
+    "sku": "ST-FLR-001"
+  },
+  {
+    "channel": "aliexpress",
+    "account": "meridian-global",
+    "listing": "AE-NTD-IV-01",
+    "sku": "ST-NTD-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-STO-IV-01",
+    "sku": "HK-STO-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-MAT-IV-01",
+    "sku": "HK-MAT-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-UTL-IV-01",
+    "sku": "HK-UTL-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-RCK-IV-01",
+    "sku": "HK-RCK-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-PLN-IV-01",
+    "sku": "ST-PLN-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-PEN-IV-01",
+    "sku": "ST-PEN-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-FLR-IV-01",
+    "sku": "ST-FLR-001"
+  },
+  {
+    "channel": "taobao",
+    "account": "meridian-east-asia",
+    "listing": "TB-NTD-IV-01",
+    "sku": "ST-NTD-001"
+  }
+]
